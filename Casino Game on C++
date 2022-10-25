@@ -1,0 +1,71 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
+
+int main()
+{
+   int money, bet, number, n_rand;
+   cout << "Правила игры:\n1. Вам необходимо угадать число от 0 до 9\n2. При верном ответе ваш баланс увеличивается на ставка * 10\n3. Выиграть сложно.\n\n";
+   while(money <= 0 || money > 1000)
+   {
+      cout << "Введите взнос(от 1 до 1000): ";
+      cin >> money;
+      if(money <= 0 || money > 1000)
+      {
+         cout << "Недопустимый взнос!\n\n";
+      }
+   }
+   
+   srand(time(NULL));
+   
+   while(money > 0)
+   {
+      cout << "Ваш баланс: " << money << "\nВаша цель: 5000\n\n";
+      cout << "Введите ставку: ";
+      cin >> bet;
+      if(bet > money || bet <= 0)
+      {
+         cout << "Недопустимая ставка!" << endl;
+      }
+      else
+      {
+         n_rand = rand() % 10;
+         cout << "Введите число от 0 до 9: ";
+         cin >> number;
+         cout << endl;
+         if(number == n_rand)
+         {
+            cout << "Вы угадали!" << endl;
+            money += 10 * bet;
+         }
+         else
+         {
+            cout << "К сожалению вы не угадали\nЭто было число: " << n_rand << "\n\n";
+            money -= bet;
+         }
+      }
+      if(money == 0)
+      {
+         cout << "Вы проиграли, попробуйте ещё раз\n\n";
+      }
+      while(money <= 0)
+      {
+         cout << "Введите взнос(от 1 до 1000): ";
+         cin >> money;
+         if(money <= 0 || money > 1000)
+         {
+            cout << "Недопустимый взнос!\n\n";
+            money = 0;
+         }
+      }
+      if(money >= 5000)
+      {
+         cout << "Поздравляю! Вы прошли игру!\n";
+         cout << "Ваш баланс: " << money << "!!!" << endl;
+         break;
+      }
+   }
+   return 0;
+}
